@@ -17,8 +17,16 @@
     var higherOrLower = "";
     var lettersGuessed;
     var gameOver = false;
+    var theCanvas;
+    var context;
 
     function initGame() {
+      var formElement = document.getElementById("createImageData");
+      formElement.addEventListener('click', createImageDataPressed, false);
+
+      theCanvas = document.getElementById("canvas");
+      context = theCanvas.getContext("2d");
+
       var letterIndex = Math.floor(Math.random() * letters.length);
       letterToGuess = letters[letterIndex];
       guesses = 0;
@@ -26,6 +34,10 @@
       gameOver = false;
       window.addEventListener("keydown", eventKeyPressed, true);
       drawScreen();
+    }
+
+    function createImageDataPressed(e) {
+      window.open(theCanvas.toDataURL(), "canvasImage", "left=0,top=0,width=" + theCanvas.width + ",height=" + theCanvas.height + ",toolbar=0,resizable=0");
     }
 
     function eventKeyPressed(e) {
@@ -76,14 +88,12 @@
       if (!canvasSupport()) {
         return;
       }
-      
+
+
       initGame();
     }
 
     function drawScreen() {
-      var theCanvas = document.getElementById("canvas");
-      var context = theCanvas.getContext("2d");
-
       // 背景
       context.fillStyle = "#ffffaa";
       context.fillRect(0, 0, 500, 300);
@@ -133,6 +143,10 @@
       Your browser does not support HTML5 Canvas.
     </canvas>
   </div>
+
+  <form>
+    <input type="button" id="createImageData" value="Export Canvas Image">
+  </form>
 </body>
 
 </html>
