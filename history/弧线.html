@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas-Study</title>
+  <script src="lib/modernizr.min.js"></script>
+  <script>
+    window.addEventListener('load', eventWindowLoaded, false);
+
+    var Debugger = function() {};
+    Debugger.log = function(message) {
+      try {
+        console.log(message);
+      } catch (exception) {
+        return;
+      }
+    }
+
+    function eventWindowLoaded() {
+      canvasApp();
+    }
+
+    function canvasSupport() {
+      return Modernizr.canvas;
+    }
+
+    function canvasApp() {
+      if (!canvasSupport()) {
+        return;
+      }
+
+      var theCanvas = document.getElementById("canvas");
+      var context = theCanvas.getContext("2d");
+
+      Debugger.log("Drawing Canvas");
+
+      drawScreen();
+
+      function drawScreen() {
+        context.beginPath();
+        context.strokeStyle = "black";
+        context.lineWidth = 5;
+        // context.arc(x, y, radius, startAngle, endAngle, anticlockwise)  // anticlockwise 弧线方向 false 顺时针
+        // 整圆
+        // context.arc(100, 200, 20, (Math.PI / 180) * 0, (Math.PI / 180) * 360, false);
+        // context.arc(100, 200, 20, (Math.PI / 180) * 0, (Math.PI / 180) * 90, false);
+        // context.arc(100, 200, 20, (Math.PI / 180) * 0, (Math.PI / 180) * 90, true); // true 逆时针
+
+        // context.arcTo(x1, y1, x2, y2, radius)
+        // 钢丝衣架
+        // context.moveTo(0, 0);
+        // context.lineTo(100, 200);
+        // context.arcTo(350, 350, 100, 100, 20);
+
+        // 贝塞尔曲线
+        // context.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);  // 立方形式 两个控制点，一个结束点
+        // context.quadraticCurveTo(cpx, cpy, x, y); // 平方形式 一个控制点，一个结束点
+
+        // context.moveTo(0, 0);
+        // context.quadraticCurveTo(100, 25, 0, 50);
+
+        context.moveTo(150, 0);
+        context.bezierCurveTo(0, 125, 300, 175, 150, 300);
+
+        context.stroke();
+        context.closePath();
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div style="position: absolute; top: 50px; left: 50px">
+    <canvas id="canvas" width="640" height="480">
+      Your browser does not support HTML5 Canvas.
+    </canvas>
+  </div>
+</body>
+
+</html>
