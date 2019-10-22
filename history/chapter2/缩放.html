@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas-Study</title>
+  <script src="lib/modernizr.min.js"></script>
+  <script>
+    window.addEventListener('load', eventWindowLoaded, false);
+
+    var Debugger = function() {};
+    Debugger.log = function(message) {
+      try {
+        console.log(message);
+      } catch (exception) {
+        return;
+      }
+    }
+
+    function eventWindowLoaded() {
+      canvasApp();
+    }
+
+    function canvasSupport() {
+      return Modernizr.canvas;
+    }
+
+    function canvasApp() {
+      if (!canvasSupport()) {
+        return;
+      }
+
+      var theCanvas = document.getElementById("canvas");
+      var context = theCanvas.getContext("2d");
+
+      Debugger.log("Drawing Canvas");
+
+      drawScreen();
+
+      function drawScreen() {
+        // context.setTransform(1, 0, 0, 1, 0, 0);
+        // 缩放默认从1开始算起，先x轴再y轴
+        // context.scale(2, 2);
+        // context.fillStyle = "red";
+        // context.fillRect(100, 100, 50, 50);
+
+        // 绘制一个红色正方形 
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        var angleInRadians = 45 * Math.PI / 180;
+        var x = 100;
+        var y = 100;
+        var width = 50;
+        var height = 50;
+        // 设置中心点缩放
+        context.translate(x + .5 * width, y + .5 * height);
+        context.scale(2, 2);
+        context.rotate(angleInRadians);
+        context.fillStyle = "red";
+        context.fillRect(-.5 * width, -.5 * height, width, height);
+
+        // context.strokeStyle = "red";
+        // context.lineWidth = 5;
+        // context.moveTo(0, 0);
+        // context.lineTo(50, 0);
+        // context.lineTo(50, 50);
+        // context.stroke();
+
+        // // 检验一个点是否在当前路径上
+        // var isPointInPath1 = context.isPointInPath(0, 0);
+        // var isPointInPath2 = context.isPointInPath(10, 10);
+        // console.log("isPointInPath1=" + isPointInPath1);
+        // console.log("isPointInPath2=" + isPointInPath2);
+        // context.closePath();
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div style="position: absolute; top: 50px; left: 50px">
+    <canvas id="canvas" width="640" height="480">
+      Your browser does not support HTML5 Canvas.
+    </canvas>
+  </div>
+</body>
+
+</html>
