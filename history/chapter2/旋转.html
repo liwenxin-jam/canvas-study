@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas-Study</title>
+  <script src="lib/modernizr.min.js"></script>
+  <script>
+    window.addEventListener('load', eventWindowLoaded, false);
+
+    var Debugger = function() {};
+    Debugger.log = function(message) {
+      try {
+        console.log(message);
+      } catch (exception) {
+        return;
+      }
+    }
+
+    function eventWindowLoaded() {
+      canvasApp();
+    }
+
+    function canvasSupport() {
+      return Modernizr.canvas;
+    }
+
+    function canvasApp() {
+      if (!canvasSupport()) {
+        return;
+      }
+
+      var theCanvas = document.getElementById("canvas");
+      var context = theCanvas.getContext("2d");
+
+      Debugger.log("Drawing Canvas");
+
+      drawScreen();
+
+      function drawScreen() {
+        // // 必须先旋转，才会把变换效果应用到形状和路径上 
+        // context.setTransform(1, 0, 0, 1, 0, 0);
+        // // canvas画布上实际旋转的是弧度，而不是角度。需要先把45度角转化成弧度角
+        // var angleInRadians = 45 * Math.PI / 180;
+        // context.rotate(angleInRadians);
+        // // 绘制一个红色正方形
+        // context.fillStyle = "red";
+        // context.fillRect(100, 100, 50, 50);
+
+        // // 绘制黑色正方形
+        // context.fillStyle = "black";
+        // context.fillRect(20, 20, 25, 25);
+
+        // // 绘制红色正方形 默认旋转的锚点是画布左上角0,0的位置
+        // context.setTransform(1, 0, 0, 1, 0, 0);
+        // var angleInRadians = 45 * Math.PI / 180;
+        // context.rotate(angleInRadians);
+        // context.fillStyle = "red";
+        // context.fillRect(100, 100, 50, 50);
+
+        // 绘制黑色正方形
+        context.fillStyle = "black";
+        context.fillRect(20, 20, 25, 25);
+
+        // 绘制红色正方形 
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        var angleInRadians = 45 * Math.PI / 180;
+        var x = 50;
+        var y = 100;
+        var width = 40;
+        var height = 40;
+        // 设置旋转中心点
+        context.translate(x + .5 * width, y + .5 * height);
+        context.rotate(angleInRadians);
+        context.fillStyle = "red";
+        context.fillRect(-.5 * width, -.5 * height, width, height);
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        var angleInRadians = 75 * Math.PI / 180;
+        var x = 100;
+        var y = 100;
+        var width = 40;
+        var height = 40;
+        context.translate(x + .5 * width, y + .5 * height);
+        context.rotate(angleInRadians);
+        context.fillStyle = "red";
+        context.fillRect(-.5 * width, -.5 * height, width, height);
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        var angleInRadians = 90 * Math.PI / 180;
+        var x = 150;
+        var y = 100;
+        var width = 40;
+        var height = 40;
+        context.translate(x + .5 * width, y + .5 * height);
+        context.rotate(angleInRadians);
+        context.fillStyle = "red";
+        context.fillRect(-.5 * width, -.5 * height, width, height);
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        var angleInRadians = 120 * Math.PI / 180;
+        var x = 200;
+        var y = 100;
+        var width = 40;
+        var height = 40;
+        context.translate(x + .5 * width, y + .5 * height);
+        context.rotate(angleInRadians);
+        context.fillStyle = "red";
+        context.fillRect(-.5 * width, -.5 * height, width, height);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div style="position: absolute; top: 50px; left: 50px">
+    <canvas id="canvas" width="640" height="480">
+      Your browser does not support HTML5 Canvas.
+    </canvas>
+  </div>
+</body>
+
+</html>
