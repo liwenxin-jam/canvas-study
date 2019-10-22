@@ -40,13 +40,30 @@
       drawScreen();
 
       function drawScreen() {
-        // 改变这里 70
-        context.fillStyle = "#aaaaaa";
-        context.fillRect(0, 0, 200, 200);
-        context.fillStyle = "#000000";
-        context.font = "20xp _sans";
-        context.textBaseLine = "top";
-        context.fillText("Canvas!", 0, 0);
+        // 在屏幕上绘制一个大方块
+        context.fillStyle = "black";
+        context.fillRect(10, 10, 200, 200);
+
+        // 保留 globalCompositeOperation 原有值不变
+        // 现在绘制一个红色正方形
+        context.fillStyle = "red";
+        context.fillRect(1, 1, 50, 50);
+
+        // 现在设置为source-over
+        context.globalCompositeOperation = "source-over";
+        // 在旁边再画一个红色正方形
+        context.fillRect(60, 1, 50, 50);
+
+        // 现在设置为 destination-atop 现在浏览器无法使用这个
+        // context.globalCompositeOperation = "destination-atop";
+        context.fillRect(1, 60, 50, 50);
+
+        // 现在设置 globalAlpha
+        context.globalAlpha = .5;
+
+        // 现在设置 source-atop
+        context.globalCompositeOperation = "source-atop";
+        context.fillRect(60, 60, 50, 50);
       }
     }
   </script>
